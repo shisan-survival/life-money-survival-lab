@@ -577,7 +577,7 @@ function renderVitalChip(kind){
   const label=getStressLabel(stress);
   const labelClass=getStressLabelClass(stress);
   const stressClass=stress>=80?" warn":"";
-  return `<div class='vital-pill stress-pill${stressClass}'><span class='vital-head'><strong>ストレス</strong><span class='vital-value'>${stress} / 100</span></span><span class='vital-sub'><span class='stress-label ${labelClass}'>${label}</span></span><span class='stat-meter stress-meter'><span class='stat-meter-fill stress-meter-fill ${labelClass}' style='width:${stress}%'></span></span></div>`;
+  return `<div class='vital-pill stress-pill${stressClass}'><span class='vital-head'><strong>ストレス</strong><span class='vital-meta'><span class='vital-value'>${stress} / 100</span><span class='stress-label ${labelClass}'>${label}</span></span></span><span class='stat-meter stress-meter'><span class='stat-meter-fill stress-meter-fill ${labelClass}' style='width:${stress}%'></span></span></div>`;
 }
 
 function render(){
