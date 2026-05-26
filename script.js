@@ -571,13 +571,13 @@ function renderVitalChip(kind){
   if(kind==="hp"){
     const hp=clamp(state.hp,0,100);
     const hpClass=hp<=20?" bad":hp<=40?" warn":"";
-    return `<span class='quick-pill vital-pill hp-pill${hpClass}'><span class='vital-head'><strong>体力</strong><span class='vital-value'>${hp} / 100</span></span><span class='stat-meter hp-meter'><span class='stat-meter-fill hp-meter-fill ${hp<=20?"danger":""}' style='width:${hp}%'></span></span></span>`;
+    return `<div class='vital-pill hp-pill${hpClass}'><span class='vital-head'><strong>体力</strong><span class='vital-value'>${hp} / 100</span></span><span class='stat-meter hp-meter'><span class='stat-meter-fill hp-meter-fill ${hp<=20?"danger":""}' style='width:${hp}%'></span></span></div>`;
   }
   const stress=clamp(state.stress,0,100);
   const label=getStressLabel(stress);
   const labelClass=getStressLabelClass(stress);
   const stressClass=stress>=80?" warn":"";
-  return `<span class='quick-pill vital-pill stress-pill${stressClass}'><span class='vital-head'><strong>ストレス</strong><span class='vital-value'>${stress} / 100</span></span><span class='vital-sub'><span class='stress-label ${labelClass}'>${label}</span></span><span class='stat-meter stress-meter'><span class='stat-meter-fill stress-meter-fill ${labelClass}' style='width:${stress}%'></span></span></span>`;
+  return `<div class='vital-pill stress-pill${stressClass}'><span class='vital-head'><strong>ストレス</strong><span class='vital-value'>${stress} / 100</span></span><span class='vital-sub'><span class='stress-label ${labelClass}'>${label}</span></span><span class='stat-meter stress-meter'><span class='stat-meter-fill stress-meter-fill ${labelClass}' style='width:${stress}%'></span></span></div>`;
 }
 
 function render(){
@@ -602,10 +602,8 @@ function render(){
     return `<div class='${classes}'><strong>${k}</strong>${v}</div>`;
   }).join("");
 
-  const chips=[`現在月 ${state.month}/${MAX_MONTH}`,`現金 ${state.cash.toLocaleString()}円`,`純資産 ${nw.toLocaleString()}円`,`借金 ${state.debt.toLocaleString()}円`,`生活費 ${livingCost().toLocaleString()}円`,"__HP_BAR__","__STRESS_BAR__",...(state.stressDangerMonths>0||state.stress>=90?[`ストレス危険 ${state.stressDangerMonths}/3`]:[]),`副業疲労 ${state.sidejobFatigue}`,`本業評価 ${state.mainJobScore}`,`評価額 ${Math.round(state.investmentBalance).toLocaleString()}円`,`投資タイプ ${state.investmentType?investmentDefs[state.investmentType].label:"なし"}`,`投資連続 ${state.investmentStreak}ヶ月`];
-  quickStatusBar.innerHTML=chips.map(t=>{
-    if(t==="__HP_BAR__") return renderVitalChip("hp");
-    if(t==="__STRESS_BAR__") return renderVitalChip("stress");
+  const chips=[`現在月 ${state.month}/${MAX_MONTH}`,`現金 ${state.cash.toLocaleString()}円`,`純資産 ${nw.toLocaleString()}円`,`借金 ${state.debt.toLocaleString()}円`,`生活費 ${livingCost().toLocaleString()}円`,...(state.stressDangerMonths>0||state.stress>=90?[`ストレス危険 ${state.stressDangerMonths}/3`]:[]),`副業疲労 ${state.sidejobFatigue}`,`本業評価 ${state.mainJobScore}`,`評価額 ${Math.round(state.investmentBalance).toLocaleString()}円`,`投資タイプ ${state.investmentType?investmentDefs[state.investmentType].label:"なし"}`,`投資連続 ${state.investmentStreak}ヶ月`];
+  const chipHtml=chips.map(t=>{
     let c="quick-pill";
     if(t.includes("現金")&&state.cash<livingCost())c+=" warn";
     if(t.includes("ストレス危険")&&state.stressDangerMonths>=2)c+=" bad";
@@ -615,6 +613,7 @@ function render(){
     if(t.includes("不可"))c+=" warn";
     return `<span class='${c}'>${t}</span>`;
   }).join("");
+  quickStatusBar.innerHTML=`<div class='quick-vitals'>${renderVitalChip("hp")}${renderVitalChip("stress")}</div><div class='quick-chip-row'>${chipHtml}</div>`;
   refreshCooldownEl.textContent=`リフレッシュ：${state.refreshCooldown>0?`あと${state.refreshCooldown}ヶ月`:`使用可能`} / 生活見直し：${state.lifePlanLevel>=3?`最大Lv`:state.rebalanceCooldown>0?`あと${state.rebalanceCooldown}ヶ月`:`使用可能`}`;
 
   wealthFill.style.width=`${clamp(nw/TARGET_NET_WORTH*100,0,100)}%`; milestoneMessage.textContent=progressStatusText();
