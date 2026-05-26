@@ -32,3 +32,24 @@ h1{margin:0 0 4px}.subtitle{margin:0;color:var(--muted)}.milestone{margin-top:8p
 .howto-body p{margin:8px 0}
 .howto-body ul{margin:8px 0 6px 18px;padding:0}
 .howto-body li{margin:4px 0}
+
+.vital-pill{min-width:190px;border-radius:10px;display:flex;flex-direction:column;gap:4px;padding:8px 10px}
+.vital-head{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px}
+.vital-value{font-variant-numeric:tabular-nums}
+.vital-sub{display:flex;justify-content:flex-end}
+.stat-meter{width:100%;height:6px;background:#1f2937;border-radius:999px;overflow:hidden}
+.stat-meter-fill{height:100%;transition:width .25s ease}
+.hp-meter-fill{background:linear-gradient(90deg,#22c55e,#84cc16)}
+.hp-meter-fill.danger{background:linear-gradient(90deg,#f59e0b,#ef4444)}
+.stress-meter-fill{background:linear-gradient(90deg,#38bdf8,#f59e0b)}
+.stress-meter-fill.warning,.stress-label.warning{color:#f59e0b}
+.stress-meter-fill.caution,.stress-label.caution{color:#facc15}
+.stress-meter-fill.danger,.stress-label.danger{color:#ef4444;background:none}
+.stress-meter-fill.normal,.stress-label.normal{color:#34d399}
+.stress-label{font-size:12px;font-weight:700}
+.stress-meter-fill.normal{background:linear-gradient(90deg,#22c55e,#34d399)}
+.stress-meter-fill.caution{background:linear-gradient(90deg,#facc15,#f59e0b)}
+.stress-meter-fill.warning{background:linear-gradient(90deg,#f59e0b,#f97316)}
+.stress-meter-fill.danger{background:linear-gradient(90deg,#fb7185,#ef4444)}
+.status-value{margin-bottom:4px}
+@media (max-width:640px){.vital-pill{min-width:160px;flex:1 1 100%}}
