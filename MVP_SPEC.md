@@ -1,5 +1,7 @@
 # MVP_SPEC（Phase 2.15 整理版）
 
+> **Phase 3開発用注記**: 本ドキュメントは開発版リポジトリ（`shisan-survival/life-money-survival-lab`）向けです。Phase 3以降の開発・検証を目的とし、本番版MVPは `shisan-survival/life-money-survival` で管理します。
+
 ## 1. MVPの目的
 36ヶ月通して遊べて、複数の行動方針に意味があり、**クリア / 未達 / ゲームオーバー**が納得できる形で完走できる状態をMVP到達点とする。
 
